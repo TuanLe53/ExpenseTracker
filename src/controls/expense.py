@@ -36,6 +36,8 @@ class Expense(ft.Column):
             on_change= self.on_category_change
         )
         self.other_category = ft.TextField(hint_text="Enter your category", width=300, visible=False)
+        self.note = ft.TextField(hint_text="Enter your note", width=300)
+        
         
         self.result = ft.Text("")
         
@@ -44,6 +46,7 @@ class Expense(ft.Column):
             ft.Column([ft.Text("Expense Amount"), self.expense_amount]),
             ft.Row([ft.Text("Expense Date"), self.expense_date_helper_text, self.expense_date_btn]),
             ft.Column([ft.Text("Category"), self.expense_category]),
+            ft.Column([ft.Text("Note"), self.note]),
             self.other_category,
             self.result,
             ft.ElevatedButton("Add Expense", on_click=self.on_click),
@@ -93,8 +96,8 @@ class Expense(ft.Column):
         name = self.expense_name.value
         amount = self.expense_amount.value
         category = self.expense_category.value
-        
         date = self.expense_date
+        note = self.note.value
         
-        self.result.value = f"Name: {name}, Amount: {amount}, Date: {date}, Category: {category}"
+        self.result.value = f"Name: {name}, Amount: {amount}, Date: {date}, Category: {category}, Note: {note}"
         self.update()
