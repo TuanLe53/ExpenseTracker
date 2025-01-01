@@ -23,5 +23,6 @@ class Calculator(ft.Column):
         income = int(self.input.value)
         needs = income * (float(self.need_percentage.value) / 100)
         save = income * (float(self.save_percentage.value) / 100)
-        self.results.value = f"Needs: {needs:,.0f} VND, Save: {save:,.0f} VND"
+        remain = income - needs - save
+        self.results.value = f"Needs: {needs:,.0f} VND, Save: {save:,.0f} VND, Remain: {remain:,.0f} VND"
         self.update()
