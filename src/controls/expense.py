@@ -92,9 +92,15 @@ class Expense(ft.Column):
             self.update()
             return
         
+        try:
+            amount = int(self.expense_amount.value)
+        except ValueError:
+            self.expense_amount.error_text = "Please enter a valid amount"
+            self.update()
+            return
+        
         
         name = self.expense_name.value
-        amount = self.expense_amount.value
         category = self.expense_category.value
         date = self.expense_date
         note = self.note.value
