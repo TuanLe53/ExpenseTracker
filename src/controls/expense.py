@@ -20,6 +20,7 @@ class Expense(ft.Column):
                 )
             )
         )
+        
         self.expense_category = ft.Dropdown(
             width=300,
             options=[
@@ -29,8 +30,11 @@ class Expense(ft.Column):
                 ft.dropdown.Option("Entertainment"),
                 ft.dropdown.Option("Education"),
                 ft.dropdown.Option("Others"),
-            ]
+            ],
+            on_change= self.on_category_change
         )
+        self.other_category = ft.TextField(hint_text="Enter your category", width=300, visible=False)
+        
         self.result = ft.Text("")
         
         self.controls=[
@@ -38,6 +42,7 @@ class Expense(ft.Column):
             ft.Column([ft.Text("Expense Amount"), self.expense_amount]),
             ft.Row([ft.Text("Expense Date"), self.expense_date_btn]),
             ft.Column([ft.Text("Category"), self.expense_category]),
+            self.other_category,
             self.result,
             ft.ElevatedButton("Add Expense", on_click=self.on_click),
         ]
@@ -45,7 +50,15 @@ class Expense(ft.Column):
     def on_date_change(self, e):
         self.expense_date = e.control.value.strftime("%d/%m/%Y")
     
-    def on_click(self, e):
+    def on_category_change(self, e):
+        if e.control.value == "Others":
+            self.other_category.visible = True
+            self.update()
+        else:
+            self.other_category.visible = False
+            self.update()
+    
+    def on_click(self, e):        
         name = self.expense_name.value
         amount = self.expense_amount.value
         date = self.expense_date
