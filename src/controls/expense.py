@@ -7,9 +7,11 @@ class Expense(ft.Column):
         
         self.expense_name = ft.TextField(hint_text="Enter your expense name", width=300)
         self.expense_amount = ft.TextField(hint_text="Enter your expense amount", width=300)
-        self.expense_date = ""
+        
+        self.expense_date = datetime.datetime.now().strftime("%d/%m/%Y")
+        self.expense_date_helper_text = ft.Text("", visible=False)
         self.expense_date_btn = ft.ElevatedButton(
-            "Select Date",
+            "Select a date (leave it blank to use today's date)",
             icon=ft.Icons.CALENDAR_MONTH,
             on_click=lambda e: page.open(
                 ft.DatePicker(
@@ -40,7 +42,7 @@ class Expense(ft.Column):
         self.controls=[
             ft.Column([ft.Text("Expense Name"), self.expense_name]),
             ft.Column([ft.Text("Expense Amount"), self.expense_amount]),
-            ft.Row([ft.Text("Expense Date"), self.expense_date_btn]),
+            ft.Row([ft.Text("Expense Date"), self.expense_date_helper_text, self.expense_date_btn]),
             ft.Column([ft.Text("Category"), self.expense_category]),
             self.other_category,
             self.result,
@@ -49,6 +51,12 @@ class Expense(ft.Column):
         
     def on_date_change(self, e):
         self.expense_date = e.control.value.strftime("%d/%m/%Y")
+        
+        self.expense_date_btn.text = "Change date"
+        
+        self.display_date.value = f"{self.expense_date}"
+        self.display_date.visible = True
+        self.update()
     
     def on_category_change(self, e):
         if e.control.value == "Others":
