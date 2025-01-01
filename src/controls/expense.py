@@ -67,9 +67,34 @@ class Expense(ft.Column):
             self.update()
     
     def on_click(self, e):        
+        self.expense_name.error_text = self.expense_amount.error_text = self.expense_category.error_text = self.other_category.error_text = ""
+        
+        if not self.expense_name.value:
+            self.expense_name.error_text = "Please enter your expense name"
+            self.update()
+            return
+        
+        if not self.expense_amount.value:
+            self.expense_amount.error_text = "Please enter your expense amount"
+            self.update()
+            return
+        
+        if not self.expense_category.value:
+            self.expense_category.error_text = "Please enter your category"
+            self.update()
+            return
+        
+        if self.expense_category.value == "Others" and not self.other_category.value:
+            self.other_category.error_text = "Please enter your category"
+            self.update()
+            return
+        
+        
         name = self.expense_name.value
         amount = self.expense_amount.value
-        date = self.expense_date
         category = self.expense_category.value
+        
+        date = self.expense_date
+        
         self.result.value = f"Name: {name}, Amount: {amount}, Date: {date}, Category: {category}"
         self.update()
