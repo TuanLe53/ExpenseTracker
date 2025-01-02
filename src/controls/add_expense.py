@@ -1,10 +1,13 @@
 import flet as ft
 import datetime
 from db_csv.expense import Expense, add_expense_to_csv
+from .expense import ExpenseRow
 
 class AddExpense(ft.Column):
     def __init__(self, page):
         super().__init__()
+        
+        self.page = page
         
         self.expense_name = ft.TextField(hint_text="Enter your expense name", width=300)
         self.expense_amount = ft.TextField(hint_text="Enter your expense amount", width=300)
@@ -14,7 +17,7 @@ class AddExpense(ft.Column):
         self.expense_date_btn = ft.ElevatedButton(
             "Select a date (leave it blank to use today's date)",
             icon=ft.Icons.CALENDAR_MONTH,
-            on_click=lambda e: page.open(
+            on_click=lambda e: self.page.open(
                 ft.DatePicker(
                     first_date=datetime.datetime(year=2023, month=10, day=1),
                     last_date=datetime.datetime.now(),
@@ -105,3 +108,4 @@ class AddExpense(ft.Column):
         
         self.result.value = f"Adding expense..."
         self.update()
+        self.page.add(ExpenseRow(new_expense))
