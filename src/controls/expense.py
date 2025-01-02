@@ -1,7 +1,8 @@
 import flet as ft
 import datetime
+from db_csv.expense import Expense, add_expense_to_csv
 
-class Expense(ft.Column):
+class AddExpense(ft.Column):
     def __init__(self, page):
         super().__init__()
         
@@ -57,8 +58,8 @@ class Expense(ft.Column):
         
         self.expense_date_btn.text = "Change date"
         
-        self.display_date.value = f"{self.expense_date}"
-        self.display_date.visible = True
+        self.expense_date_helper_text.value = f"{self.expense_date}"
+        self.expense_date_helper_text.visible = True
         self.update()
     
     def on_category_change(self, e):
@@ -99,11 +100,8 @@ class Expense(ft.Column):
             self.update()
             return
         
+        new_expense = Expense(name=self.expense_name.value, amount=amount, category=self.expense_category.value, category_expand=self.other_category.value,date=self.expense_date, note=self.note.value)
+        add_expense_to_csv(new_expense)
         
-        name = self.expense_name.value
-        category = self.expense_category.value
-        date = self.expense_date
-        note = self.note.value
-        
-        self.result.value = f"Name: {name}, Amount: {amount}, Date: {date}, Category: {category}, Note: {note}"
+        self.result.value = f"Adding expense..."
         self.update()
