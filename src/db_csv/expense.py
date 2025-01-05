@@ -3,6 +3,7 @@ from csv import writer, reader
 from dataclasses import dataclass, field
 from typing import Optional
 import os
+from .utils import write_csv_file
 
 @dataclass
 class Expense:
@@ -16,7 +17,7 @@ class Expense:
     
 file_path = os.path.join(os.path.dirname(__file__), 'expenses.csv')
 
-def add_expense_to_csv(expense: Expense):
+def add_expense_to_csv(expense: Expense) -> None:
 
     with open(file_path, 'a') as f:
         w = writer(f, lineterminator='\n')
@@ -35,3 +36,15 @@ def get_expenses() -> list[Expense]:
             expenses.append(expense)        
         
     return expenses
+
+def delete_expense_by_id(expense_id: uuid.UUID) -> None:
+    expenses = get_expenses()
+    expenses = [expense for expense in expenses if expense.id != expense_id]
+    
+    columns = ['id', 'name', 'amount', 'category', 'category_expand', 'date', 'note']
+    
+    write_csv_file(
+        file_path,
+        columns,
+        [[expense.id, expense.name, expense.amount, expense.category, expense.category_expand, expense.date, expense.note] for expense in expenses]
+    )
