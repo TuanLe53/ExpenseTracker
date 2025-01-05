@@ -13,4 +13,4 @@ class ExpenseList(ft.DataTable):
         super().__init__(columns)
         
         
-        self.rows = [ExpenseRow(expense) for expense in expenses]
+        self.rows = [ExpenseRow(expense, self) for expense in expenses]
