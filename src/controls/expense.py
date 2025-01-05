@@ -1,5 +1,6 @@
 import flet as ft
-from db_csv.expense import Expense
+import uuid
+from db_csv.expense import Expense, delete_expense_by_id
 
 class ExpenseRow(ft.DataRow):
     def __init__(self, expense: Expense):
@@ -8,5 +9,15 @@ class ExpenseRow(ft.DataRow):
                 ft.DataCell(ft.Text(expense.date)),
                 ft.DataCell(ft.Text(expense.name)),
                 ft.DataCell(ft.Text(expense.amount)),
+                ft.DataCell(ft.IconButton(
+                    icon=ft.Icons.DELETE_FOREVER_ROUNDED,
+                    icon_color="red500",
+                    icon_size=40,
+                    tooltip="Delete expense",
+                    on_click=lambda e: self.delete(e, expense.id)
+                ))
             ]
         )
+        
+    def delete(self, e, expense_id: uuid.UUID) -> None:
+        delete_expense_by_id(expense_id)
