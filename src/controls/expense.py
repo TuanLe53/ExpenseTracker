@@ -3,7 +3,8 @@ import uuid
 from db_csv.expense import Expense, delete_expense_by_id
 
 class ExpenseRow(ft.DataRow):
-    def __init__(self, expense: Expense):
+    def __init__(self, expense: Expense, parent):
+        self.parent = parent
         super().__init__(
             cells=[
                 ft.DataCell(ft.Text(expense.date)),
@@ -21,3 +22,5 @@ class ExpenseRow(ft.DataRow):
         
     def delete(self, e, expense_id: uuid.UUID) -> None:
         delete_expense_by_id(expense_id)
+        self.parent.rows.remove(self)
+        self.parent.update()
