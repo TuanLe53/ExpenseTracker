@@ -8,6 +8,7 @@ class ExpenseList(ft.DataTable):
             ft.DataColumn(ft.Text("Date")),
             ft.DataColumn(ft.Text("Name")),
             ft.DataColumn(ft.Text("Amount")),
+            ft.DataColumn(ft.Text("Delete")),
         ]
         super().__init__(columns)
         
