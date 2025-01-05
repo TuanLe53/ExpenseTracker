@@ -1,10 +1,9 @@
 import flet as ft
 import datetime
 from db_csv.expense import Expense, add_expense_to_csv
-from .expense import ExpenseRow
 
 class AddExpense(ft.Column):
-    def __init__(self, page):
+    def __init__(self, page: ft.Page):
         super().__init__()
         
         self.page = page
@@ -109,4 +108,3 @@ class AddExpense(ft.Column):
         # self.result.value = f"Adding expense..."
         self.update()
         self.page.go("/")
-        # self.page.add(ExpenseRow(new_expense))
