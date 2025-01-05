@@ -106,6 +106,7 @@ class AddExpense(ft.Column):
         new_expense = Expense(name=self.expense_name.value, amount=amount, category=self.expense_category.value, category_expand=self.other_category.value,date=self.expense_date, note=self.note.value)
         add_expense_to_csv(new_expense)
         
-        self.result.value = f"Adding expense..."
+        # self.result.value = f"Adding expense..."
         self.update()
-        self.page.add(ExpenseRow(new_expense))
+        self.page.go("/")
+        # self.page.add(ExpenseRow(new_expense))
