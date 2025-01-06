@@ -1,5 +1,6 @@
 import flet as ft
 from controls.expense_list import ExpenseList
+from controls.calculator import Calculator
 from db_csv.expense import get_expenses
 from controls.add_expense import AddExpense
 
@@ -10,6 +11,7 @@ def main(page: ft.Page):
         destinations=[
             ft.NavigationBarDestination(icon=ft.Icons.HOME, label="Home"),
             ft.NavigationBarDestination(icon=ft.Icons.ADD, label="Add Expense"),
+            ft.NavigationBarDestination(icon=ft.Icons.CALCULATE_ROUNDED, label="Calculate"),
         ],
         on_change=lambda e: navigate_to(e)
     )
@@ -19,6 +21,8 @@ def main(page: ft.Page):
             page.go("/")
         elif e.data == "1":
             page.go("/expense/new")
+        elif e.data == "2":
+            page.go("/calculate")
 
 
     def route_change(route):
@@ -39,6 +43,16 @@ def main(page: ft.Page):
                     "/expense/new",
                     [
                         AddExpense(page),
+                    ],
+                    navigation_bar=page.navigation_bar
+                )
+            )
+        elif page.route == "/calculate":
+            page.views.append(
+                ft.View(
+                    "/calculate",
+                    [
+                        Calculator(),
                     ],
                     navigation_bar=page.navigation_bar
                 )
