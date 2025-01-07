@@ -29,6 +29,12 @@ class Calculator(ft.Column):
             self.update()
             return
         
+        try:
+            int(self.input.value)
+        except ValueError:
+            self.input.error_text = "Please enter a valid number"
+            self.update()
+            return
         if not self.need_percentage.value:
             self.need_percentage.error_text = "Please enter needs percentage"
             self.update()
