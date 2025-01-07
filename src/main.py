@@ -1,5 +1,6 @@
 import flet as ft
 from views.home import HomeView
+from views.new_plan import NewPlanView
 from controls.calculator import Calculator
 from db.db import create_tables
 from controls.add_expense import AddExpense
@@ -34,6 +35,8 @@ def main(page: ft.Page):
                     navigation_bar=NavBar(page)
                 )
             )
+        elif page.route == "/plan/new":
+            page.views.append(NewPlanView(page))
             
         page.update()
         
