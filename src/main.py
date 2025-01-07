@@ -1,41 +1,18 @@
 import flet as ft
-from controls.expense_list import ExpenseList
+from views.home import HomeView
 from controls.calculator import Calculator
-from db_csv.expense import get_expenses
+from db.db import create_tables
 from controls.add_expense import AddExpense
+from controls.navigation_bar import NavBar
 
 def main(page: ft.Page):
-    page.title = "Expenses Tracker"
-
-    page.navigation_bar = ft.NavigationBar(
-        destinations=[
-            ft.NavigationBarDestination(icon=ft.Icons.HOME, label="Home"),
-            ft.NavigationBarDestination(icon=ft.Icons.ADD, label="Add Expense"),
-            ft.NavigationBarDestination(icon=ft.Icons.CALCULATE_ROUNDED, label="Calculate"),
-        ],
-        on_change=lambda e: navigate_to(e)
-    )
-
-    def navigate_to(e: ft.ControlEvent):
-        if e.data == "0":
-            page.go("/")
-        elif e.data == "1":
-            page.go("/expense/new")
-        elif e.data == "2":
-            page.go("/calculate")
-
+    page.title = "Tracker"
+    
+    create_tables()
 
     def route_change(route):
         page.views.clear()
-        page.views.append(
-            ft.View(
-                "/",
-                [
-                    ExpenseList(get_expenses()),
-                ],
-                navigation_bar=page.navigation_bar
-            )
-        )
+        page.views.append(HomeView(page))
         
         if page.route == "/expense/new":
             page.views.append(
@@ -44,7 +21,7 @@ def main(page: ft.Page):
                     [
                         AddExpense(page),
                     ],
-                    navigation_bar=page.navigation_bar
+                    navigation_bar=NavBar(page)
                 )
             )
         elif page.route == "/calculate":
@@ -54,7 +31,7 @@ def main(page: ft.Page):
                     [
                         Calculator(),
                     ],
-                    navigation_bar=page.navigation_bar
+                    navigation_bar=NavBar(page)
                 )
             )
             
