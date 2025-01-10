@@ -1,9 +1,9 @@
 import flet as ft 
 from controls.navigation_bar import NavBar
-from controls.calculator import Calculator
 from dataclasses import dataclass, field
 from datetime import datetime
 import calendar
+from db.db import add_plan
 
 @dataclass
 class BudgetPlan:
@@ -75,7 +75,7 @@ class NewPlanView(ft.View):
                     ft.ElevatedButton("Reset", on_click=self.reset),
                     ft.ElevatedButton("Calculate", on_click=self.calculate),
                 ]),
-                ft.ElevatedButton("Save", on_click=lambda e: print(self.plan.__dict__))
+                ft.ElevatedButton("Save", on_click=self.save_plan),
             ]
         )
         
@@ -110,3 +110,14 @@ class NewPlanView(ft.View):
         self.controls.append(ft.ElevatedButton("Calculate", on_click=self.on_click))
         self.update()
         
+    def save_plan(self, e):
+        print(self.plan)
+        add_plan(
+            name=self.plan.name,
+            budget=self.plan.budget,
+            start_date=self.plan.start_date,
+            end_date=self.plan.end_date,
+            save_percentage=self.plan.save_percentage,
+            need_percentage=self.plan.need_percentage,
+            is_active=True
+        )
