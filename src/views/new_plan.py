@@ -71,8 +71,10 @@ class NewPlanView(ft.View):
         self.controls.pop()
         self.controls.extend(
             [
-                ft.ElevatedButton("Reset", on_click=self.reset),
-                ft.ElevatedButton("Calculate", on_click=self.calculate),
+                ft.Row([
+                    ft.ElevatedButton("Reset", on_click=self.reset),
+                    ft.ElevatedButton("Calculate", on_click=self.calculate),
+                ]),
                 ft.ElevatedButton("Save", on_click=lambda e: print(self.plan.__dict__))
             ]
         )
