@@ -3,7 +3,7 @@ from controls.navigation_bar import NavBar
 from dataclasses import dataclass, field
 from datetime import datetime
 import calendar
-from db.db import add_plan
+from db.plan import add_plan
 
 @dataclass
 class BudgetPlan:

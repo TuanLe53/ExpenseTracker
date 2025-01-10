@@ -1,6 +1,6 @@
 import flet as ft
 from controls.navigation_bar import NavBar
-from db.db import get_active_plan
+from db.plan import get_active_plan
 
 class HomeView(ft.View):
     def __init__(self, page: ft.Page):
