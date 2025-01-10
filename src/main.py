@@ -1,9 +1,9 @@
 import flet as ft
 from views.home import HomeView
 from views.new_plan import NewPlanView
+from views.new_expense import NewExpenseView
 from controls.calculator import Calculator
 from db.db import create_tables
-from controls.add_expense import AddExpense
 from controls.navigation_bar import NavBar
 
 def main(page: ft.Page):
@@ -16,15 +16,7 @@ def main(page: ft.Page):
         page.views.append(HomeView(page))
         
         if page.route == "/expense/new":
-            page.views.append(
-                ft.View(
-                    "/expense/new",
-                    [
-                        AddExpense(page),
-                    ],
-                    navigation_bar=NavBar(page)
-                )
-            )
+            page.views.append(NewExpenseView(page))
         elif page.route == "/calculate":
             page.views.append(
                 ft.View(
