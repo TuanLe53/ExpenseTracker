@@ -17,8 +17,8 @@ class PlanModel(BaseModel):
     budget = IntegerField()
     start_date = DateField()
     end_date = DateField()
-    save_percentage = FloatField()
-    need_percentage = FloatField()
+    save_percentage = IntegerField()
+    need_percentage = IntegerField()
     is_active = BooleanField()
         
 class ExpenseModel(BaseModel):
