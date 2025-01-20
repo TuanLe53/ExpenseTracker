@@ -2,6 +2,7 @@ import flet as ft
 from views.home import HomeView
 from views.new_plan import NewPlanView
 from views.new_expense import NewExpenseView
+from views.expenses import ExpensesView
 from db.db import create_tables
 
 def main(page: ft.Page):
@@ -17,6 +18,8 @@ def main(page: ft.Page):
             page.views.append(NewExpenseView(page))
         elif page.route == "/plan/new":
             page.views.append(NewPlanView(page))
+        elif page.route == "/plan/expenses":
+            page.views.append(ExpensesView(page))
             
         page.update()
         
