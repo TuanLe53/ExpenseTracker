@@ -1,12 +1,12 @@
 import flet as ft
 from typing import List
-from controls.expense_list import ExpenseList
 from db.db import ExpenseModel
 
-
-class Expenses(ft.Column):
-    def __init__(self, expense_budget: int, expenses: List[ExpenseModel]):
+class Expenses(ft.Container):
+    def __init__(self, page: ft.Page, expense_budget: int, expenses: List[ExpenseModel]):
         super().__init__()
+        
+        self.page = page
         
         self.expense_budget = expense_budget
         self.expenses = expenses
@@ -34,9 +34,18 @@ class Expenses(ft.Column):
             expand=True,
         )
         
-        self.controls = [
-            ft.Text("Expenses"),
+        content = ft.Column([
+            ft.Row([
+                ft.Text("Expenses"),
+                ft.TextButton(
+                        text="Details",
+                        on_click=lambda e: self.page.go("/plan/expenses")
+                    )
+                ],
+                alignment=ft.MainAxisAlignment.SPACE_BETWEEN
+            ),
             ft.Text(f"{self.expense_budget:,}"),
             chart,
-            ExpenseList(self.expenses)
-        ]
+        ])
+        
+        self.content = content
