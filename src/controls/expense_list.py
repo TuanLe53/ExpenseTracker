@@ -1,6 +1,6 @@
 import flet as ft
 from db_csv.expense import Expense
-from .expense import ExpenseRow
+from .expense_row import ExpenseRow
 
 class ExpenseList(ft.DataTable):
     def __init__(self, expenses: list[Expense]):
