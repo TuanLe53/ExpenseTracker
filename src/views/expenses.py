@@ -1,5 +1,5 @@
 import flet as ft
-from controls.expense_list import ExpenseList
+from controls.expense_list import ExpenseTable
 from controls.back_button import BackButton
 from db.expense import get_expenses_from_current_plan
 
@@ -16,6 +16,6 @@ class ExpensesView(ft.View):
         self.expenses = get_expenses_from_current_plan()
         self.controls = [
             BackButton(self.page),
-            ExpenseList(self.expenses),
+            ExpenseTable(self.expenses),
         ]
         self.update()
